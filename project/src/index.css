@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Medieval';
+    src: url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .font-medieval {
+    font-family: 'MedievalSharp', cursive;
+  }
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 640px) {
+  .game-board {
+    @apply flex flex-col;
+  }
+
+  .player-hand {
+    @apply grid-cols-3;
+  }
+
+  .game-stats {
+    @apply flex-col space-y-2;
+  }
+}
+
+/* Dark mode transitions */
+.dark {
+  @apply transition-colors duration-300;
+}
+
+/* Card hover effects */
+.card {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+/* Medieval-themed scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-medieval-light dark:bg-medieval-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-medieval-primary dark:bg-medieval-secondary rounded-full;
+}
+
+/* Achievements animation */
+.achievement-popup {
+  @apply animate-bounce;
+}

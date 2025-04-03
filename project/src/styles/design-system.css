@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design System Variables */
+:root {
+  /* Card Type Colors */
+  --color-human: rgb(0, 120, 255);
+  --color-nonhuman: rgb(40, 180, 90);
+  --color-celestial: rgb(140, 60, 190);
+  --color-event: rgb(220, 60, 50);
+  --color-location: rgb(160, 120, 80);
+  --color-object: rgb(130, 130, 130);
+  --color-passive: rgb(255, 255, 255);
+  --color-monster: rgb(30, 30, 30);
+
+  /* Depth Layers */
+  --depth-0: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --depth-1: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --depth-2: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --depth-3: 0 12px 24px rgba(0, 0, 0, 0.25);
+
+  /* Animation Timings */
+  --animation-fast: 0.2s;
+  --animation-normal: 0.3s;
+  --animation-slow: 0.5s;
+
+  /* Touch Target Sizes */
+  --touch-target-min: 44px;
+  --touch-target-spacing: 8px;
+}
+
+/* Base Styles */
+@layer base {
+  html {
+    @apply antialiased;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply min-h-screen bg-gradient-to-b from-medieval-dark to-medieval-primary;
+    overscroll-behavior: none;
+  }
+
+  /* Improve touch targets on mobile */
+  @media (max-width: 768px) {
+    button, 
+    [role="button"],
+    input,
+    select {
+      min-height: var(--touch-target-min);
+      min-width: var(--touch-target-min);
+      padding: var(--touch-target-spacing);
+    }
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-medieval-dark/50 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-medieval-accent/50 rounded-full hover:bg-medieval-accent/70 transition-colors;
+  }
+}
+
+/* Component Classes */
+@layer components {
+  /* Card Base */
+  .card-base {
+    @apply relative rounded-lg transition-all duration-300;
+    box-shadow: var(--depth-1);
+  }
+
+  /* Card Type Styles */
+  .card-human { @apply border-2 border-opacity-50; border-color: var(--color-human); }
+  .card-nonhuman { @apply border-2 border-opacity-50; border-color: var(--color-nonhuman); }
+  .card-celestial { @apply border-2 border-opacity-50; border-color: var(--color-celestial); }
+  .card-event { @apply border-2 border-opacity-50; border-color: var(--color-event); }
+  .card-location { @apply border-2 border-opacity-50; border-color: var(--color-location); }
+  .card-object { @apply border-2 border-opacity-50; border-color: var(--color-object); }
+  .card-passive { @apply border-2 border-opacity-50; border-color: var(--color-passive); }
+  .card-monster { @apply border-2 border-opacity-50; border-color: var(--color-monster); }
+
+  /* Card Grid */
+  .card-grid {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  /* Card Animations */
+  .card-hover {
+    @apply transition-transform duration-300 ease-out;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px) rotateX(5deg);
+  }
+
+  /* Card States */
+  .card-owned {
+    @apply opacity-100;
+  }
+
+  .card-not-owned {
+    @apply opacity-50 grayscale;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 640px) {
+    .card-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .depth-0 { box-shadow: var(--depth-0); }
+  .depth-1 { box-shadow: var(--depth-1); }
+  .depth-2 { box-shadow: var(--depth-2); }
+  .depth-3 { box-shadow: var(--depth-3); }
+
+  .touch-target {
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thumb-medieval-accent {
+    scrollbar-color: var(--color-accent) transparent;
+  }
+
+  .transform-gpu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+}
+
+/* High DPI Screen Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card-base {
+    @apply border-[0.5px];
+  }
+}
+
+/* Desktop Optimizations */
+@media (min-width: 1024px) {
+  .card-base {
+    @apply hover:scale-105 transition-transform;
+  }
+}
